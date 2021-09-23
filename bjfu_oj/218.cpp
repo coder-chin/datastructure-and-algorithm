@@ -6,7 +6,8 @@ using namespace std;
 #define ERROR 0
 #define OVERFLOW -2
 int length = 0;
-typedef struct{
+
+typedef struct {
 	string no;
 	string name;
 	double price;
@@ -15,6 +16,7 @@ typedef struct LNode{
 	Book book;
 	struct LNode *next; 
 }LNode, *LinkList;
+
 int Init(LinkList L)
 {
 	L->next = NULL;
@@ -26,15 +28,14 @@ int Input(LinkList L)
 	string no, name;
 	double price;
 	cin >> length;
-	int i = 0;
-	while(i<8) 
+	while(length) 
 	{
 		LinkList q = new LNode;
 		cin >> no >> name >> price;
 		q->book.no = no;
 		q->book.name = name;
 		q->book.price = price;
-		i++;
+		length--;
 		p->next = q;
 		p = p->next;
 	}
@@ -44,14 +45,34 @@ int Output(LinkList L)
 {
 	LNode *p = L->next;  //指向首元结点 
 	double max = p->book.price;
-	cout << max << "start" << endl;
-	p = p->next; //指向第二个
+	p = p->next;
 	while(p)
 	{
-		max < p->book.price? p->book.price : max; 
+		max = max < p->book.price? p->book.price : max; 
 		p = p->next;
 	}
-	cout << max << "end" <<endl;
+
+	p = L->next;
+	int flag = 0;
+
+	while(p) {
+		if(p->book.price==max) {
+			flag++;
+		}
+		p = p->next;
+	}
+
+	if(flag) {
+		cout << flag << endl;
+		p = L->next;
+		while(p) {
+			if(p->book.price==max) {
+				cout << p->book.no << " " << p->book.name << " " << fixed <<  setprecision(2) << p->book.price << endl;
+			}
+			p = p->next;
+		}
+	}
+
 	return OK;
 }
 
