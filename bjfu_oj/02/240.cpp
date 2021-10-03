@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stack>
 #include <string>
-#include <stdlib.h>
 #include <iomanip>
 using namespace std;
 
@@ -16,13 +15,14 @@ void calculate(stack<double> &num, stack<char> &ch)
 
 	switch(c)
 	{
-		case '+': num.push(b+a); break;
+		case '+': num.push(b+a); break;    // 注意 a 和 b 的顺序
 		case '-': num.push(b-a); break;
 		case '*': num.push(b*a); break;
 		case '/': num.push(b/a); break;
 	}
 }
 
+// 比较优先级
 int pre(char c)
 {
 	if(c=='+' || c=='-')
@@ -35,9 +35,9 @@ int pre(char c)
 
 int main()
 {
-	stack<double> num;
-	stack<char> ch;
-	string s;
+	stack<double> num;  // 存放数字
+	stack<char> ch;		// 存放运算符
+	string s;           // 表达式
 
 	while(cin>>s)
 	{
@@ -47,14 +47,38 @@ int main()
 		
 		for (int i = 0; i < n; ++i)
 		{
-			if(isdigit(s[i])) //判断该字符是否是十进制数字
+			if(s[i] >= '0' && s[i] <= '9')  // 是数字
 			{
-
-				double tmp = atof(&s[i]);
+				double tmp = s[i] - '0';
+				i++;
+				while(s[i]!='+' && s[i]!='-' && s[i]!='*' && s[i]!='/' && s[i]!=')' && s[i]!='=')
+				{
+					//cout << s[i] << endl;
+					if(s[i] >= '0' && s[i] <= '9') {
+						tmp = 10*tmp + (s[i]-'0');
+						i++; //�����������ƶ� 
+					}
+					else if(s[i]=='.') {
+						int e = 0;
+						i++;
+						double dot = 0;
+						
+						while(s[i]!='+' && s[i]!='-' && s[i]!='*' && s[i]!='/' && s[i]!=')' && s[i]!='=') {
+							e++;
+							dot = s[i] - '0';
+							for (int j = 0; j < e; ++j)
+							{
+								 dot /= 10;
+							}
+							tmp += dot;
+							i++;
+						}
+					}
+				}
 				num.push(tmp);
-				while(isdigit(s[i]) || s[i]=='.') i++;  //跳到最后
 				i--;
-			} 
+			}
+
 			else {
 				if(ch.empty())
 					ch.push(s[i]);
@@ -64,14 +88,14 @@ int main()
 				{
 					while(ch.top()!='(')
 						calculate(num, ch);  //不到左括号就一直计算
-					ch.pop();
+					ch.pop();    			// 左括号走人
 				}
 				else if(pre(s[i]) > pre(ch.top()))
-					ch.push(s[i]);
+					ch.push(s[i]);           // 优先级高压入
 				else if(pre(s[i]) < pre(ch.top()))
 				{
 					while(!ch.empty() && pre(s[i])<=pre(ch.top()))
-						calculate(num, ch);
+						calculate(num, ch);   //优先级低就一直计算
 					ch.push(s[i]);
 				}
 			}	
