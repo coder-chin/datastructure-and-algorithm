@@ -1,7 +1,8 @@
 #include <iostream>
 #include <stack>
+#include <queue>
 using namespace std;
 int main()
 {
-	cout << '9'-'0';
+	
 }
