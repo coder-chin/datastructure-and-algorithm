@@ -1,11 +1,11 @@
 #include <iostream>
+#include <queue>
+#include <stack>
 #include <string>
 using namespace std;
-int main() 
+
+int main()
 {
-	string name = to_string(123456);
-
-	cout << typeof(name);
-
+	cout << 5/2;
 	return 0;
 }

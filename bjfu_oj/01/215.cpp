@@ -1,10 +1,11 @@
 #include<iostream>
 #include<string>
-#include<iomanip>  //±£ÁôÁ½Î»Ğ¡Êı±ØĞëÒªÓÃµ½µÄÍ·ÎÄ¼ş
+#include<iomanip>  //ä¿ç•™ä¸¤ä½å°æ•°å¿…é¡»è¦ç”¨åˆ°çš„å¤´æ–‡ä»¶
 using namespace std;
 #define OK 1
 #define ERROR 0
 #define OVERFLOW -2
+
 typedef struct{
 	string no;
 	string name;
@@ -14,6 +15,7 @@ typedef struct LNode{
 	Book book;
 	struct LNode *next; 
 }LNode, *LinkList;
+
 int Init(LinkList L)
 {
 	L->next = NULL;
@@ -54,10 +56,10 @@ int Length(LinkList L)
 }
 int sort(LinkList L, int length)
 {
-	LNode *p; //Ö¸ÏòÍ·½Úµã 
+	LNode *p; //æŒ‡å‘å¤´èŠ‚ç‚¹ 
 	for(int i=0;i<length-1;i++)
 	{
-		p = L->next; //Ö¸ÏòÍ·½Úµã 
+		p = L->next; //æŒ‡å‘å¤´èŠ‚ç‚¹ 
 		for(int j=0;j<length-i-1;j++)
 		{
 			if(p->book.price < p->next->book.price)
@@ -73,7 +75,7 @@ int sort(LinkList L, int length)
 }
 int Output(LinkList L)
 {
-	LNode *p = L;  //pÖ¸ÏòÍ·½áµã
+	LNode *p = L;  //pæŒ‡å‘å¤´ç»“ç‚¹
 	while(p->next)
 	{
 		cout << p->next->book.no << " " << p->next->book.name << " " << fixed <<  setprecision(2) << p->next->book.price << endl;
@@ -81,7 +83,7 @@ int Output(LinkList L)
 	}
 	return OK;
 }
-
+ 
 int main()
 {
 	LinkList L;
@@ -89,9 +91,7 @@ int main()
 	Init(L);
 	Input(L);
 	int length = Length(L);
-	cout << length << endl;
 	sort(L, length);
 	Output(L);
 	return 0;
 }
-

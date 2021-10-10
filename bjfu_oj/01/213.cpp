@@ -38,9 +38,11 @@ int Output(SqList &L)
 	Init(sta);
 	sta.elem[0] = L.elem[0];
 	sta.length = 1;
+	int flag;
+
 	for (int i = 1; i < L.length; i++)
 	{
-		int flag = 1;
+		flag = 1;
 		for (int j = 0; j < sta.length; j++)
 		{
 			if(L.elem[i].no==sta.elem[j].no)
@@ -58,7 +60,7 @@ int Output(SqList &L)
 	cout << sta.length << endl;
 	for (int i = 0; i < sta.length; ++i)
 	{
-		cout << L.elem[i].no << " " << L.elem[i].name << " " << fixed << setprecision(2) << L.elem[i].price << endl;
+		cout << sta.elem[i].no << " " << sta.elem[i].name << " " << fixed << setprecision(2) << sta.elem[i].price << endl;
 	}
 	return OK;
 }

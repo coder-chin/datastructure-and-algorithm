@@ -5,7 +5,7 @@ using namespace std;
 #define OK 1
 #define ERROR 0
 #define OVERFLOW -2
-#define MAXSIZE 100
+#define MAXSIZE 1000
 
 typedef struct{
 	string no;
@@ -35,25 +35,9 @@ int Input(SqList &L)
 }
 int Output(SqList &L)
 {
-	double max = L.elem[0].price;
-	int n=0;
-
-	for (int i = 1; i < L.length; ++i)
-	{
-		max = max>L.elem[i].price? max : L.elem[i].price;
-	}
-	for (int i = 1; i <= L.length; ++i)
-	{
-		if(max==L.elem[i].price)
-			n++;
-	}
-	cout << n << endl;
-	for (int i = 1; i <= L.length; ++i)
-	{
-		if(L.elem[i].price==max)
-			cout << L.elem[i].no << " " << L.elem[i].name << " " << fixed << setprecision(2) << L.elem[i].price << endl;
-	}
-	
+	for (int i = L.length; i >= 1; i--)
+		cout << L.elem[i].no << " " << L.elem[i].name << " " << fixed << setprecision(2)
+		<< L.elem[i].price << endl;
 	return OK;
 }
 

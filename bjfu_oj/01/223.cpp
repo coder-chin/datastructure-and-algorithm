@@ -4,34 +4,34 @@
 using namespace std;
 #define OK 1
 #define ERROR 0
-
+ 
 int length;
 int flag;
-
+ 
 typedef struct {
 	string no;
 	string name;
 	double price;
 } Book;
-
+ 
 typedef struct LNode {
 	Book book;
 	struct LNode *next;
 } LNode, *LinkList;
-
+ 
 bool init(LinkList L) {
 	L->next = NULL;
 	return OK;
 }
-
+ 
 bool input(LinkList L) {
 	cin >> length;
 	int i = length;
-
+ 
 	LNode *p = L;
 	string no, name;
 	double price;
-
+ 
 	while(i) {
 		cin >> no >> name >> price;
 		LNode *q = new LNode;
@@ -42,10 +42,10 @@ bool input(LinkList L) {
 		p->next = q;
 		p = p->next;
 	}
-
+ 
 	return OK;
 }
-
+ 
 bool reduceRepete(LinkList L)
 {
 	LinkList p = L->next;
@@ -60,25 +60,24 @@ bool reduceRepete(LinkList L)
 			if(fast->book.no==p->book.no) {
 				slow->next = fast->next;
 				fast = fast->next;
+              	length--;
 				//cout << "same" << endl;
-			} 
-			else {
+			} else {
 				slow = slow->next;
 				fast = fast->next;
 				//cout << "diff" << endl;
 			}
 		}
-		
-		//cout << "pºóÒÆ" << endl;
+		//cout << "påŽç§»" << endl;
 		p = p->next;
 		
 	}
 	return OK;
 }
-
+ 
 bool output(LinkList L) {
 	//cout << "--------" << endl;
-	cout << length << endl;
+  	cout << length << endl;
 	LinkList p = L->next;
 	while(p) {
 		cout << p->book.no << " " << p->book.name << " " << fixed <<  setprecision(2) << p->book.price << endl;
@@ -86,7 +85,7 @@ bool output(LinkList L) {
 	}
 	return OK;
 }
-
+ 
 int main() 
 {
 	LinkList L = new LNode;
@@ -94,5 +93,4 @@ int main()
 	input(L);
 	reduceRepete(L);
 	output(L);
-	return 0; 
 }
