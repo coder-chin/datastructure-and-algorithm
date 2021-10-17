@@ -8,8 +8,8 @@ typedef struct BiTNode {
 	struct BiTNode *lchild, *rchild;
 } BiTNode, *BiTree;
 
-int length, i;
-char path[100];
+int i;
+vector<int> length(3);
 
 void createBiTree(BiTree &t, string s, int &i) {
 	if(s[i]=='0') {
@@ -22,20 +22,17 @@ void createBiTree(BiTree &t, string s, int &i) {
 	}
 }
 
-void getAllPath(BiTree t, int n) {
+void traverseBiTree(BiTree t) {
 	if(t) {
-		path[n] = t->data;
-		// cout << n << " " << ans[n] << endl;
-		if(!t->lchild && !t->rchild) {
-			for(int i=n; i>=0; i--) {
-				cout << path[i];
-			}
-			cout << endl;
+		if(t->lchild && t->rchild) {
+			length[2]++;
+		} else if( (!t->lchild && t->rchild) || (t->lchild && !t->rchild) ) {
+			length[1]++;
+		} else {
+			length[0]++;
 		}
-		else {
-			getAllPath(t->lchild, n+1);
-			getAllPath(t->rchild, n+1);
-		}
+		traverseBiTree(t->lchild);
+		traverseBiTree(t->rchild);
 	}
 }
     
@@ -45,14 +42,14 @@ int main()
 
 	while(cin>>s && s!="0")
 	{
-
+		fill(length.begin(), length.end(), 0);
 		BiTree t = NULL;
 		i = -1;
-		length = 0;
 
 		createBiTree(t, s, ++i);
-		
-		getAllPath(t, length);
+		traverseBiTree(t);
+
+		cout << length[0] << " " << length[1] << " " << length[2] << endl;
 	}
 
 	return 0;

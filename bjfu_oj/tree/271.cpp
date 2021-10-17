@@ -8,8 +8,7 @@ typedef struct BiTNode {
 	struct BiTNode *lchild, *rchild;
 } BiTNode, *BiTree;
 
-int length, i;
-char path[100];
+int i;
 
 void createBiTree(BiTree &t, string s, int &i) {
 	if(s[i]=='0') {
@@ -22,37 +21,40 @@ void createBiTree(BiTree &t, string s, int &i) {
 	}
 }
 
-void getAllPath(BiTree t, int n) {
-	if(t) {
-		path[n] = t->data;
-		// cout << n << " " << ans[n] << endl;
-		if(!t->lchild && !t->rchild) {
-			for(int i=n; i>=0; i--) {
-				cout << path[i];
+int getMaxHeight(BiTree t) {
+	vector<BiTree> queue;  //队列
+ 	queue.push_back(t);  //root
+ 	int height = 0;
+	while(!queue.empty()) {
+		height++;
+		vector<BiTree> tmp;		//存放下一层	
+		for(BiTree item: queue) {
+			if(item->lchild) {
+				tmp.push_back(item->lchild);
 			}
-			cout << endl;
+			
+			if(item->rchild) {
+				tmp.push_back(item->rchild);
+			}																				
 		}
-		else {
-			getAllPath(t->lchild, n+1);
-			getAllPath(t->rchild, n+1);
-		}
+		queue = tmp;
 	}
+
+	return height;
 }
-    
+
 int main()
 {
 	string s;
 
 	while(cin>>s && s!="0")
 	{
-
 		BiTree t = NULL;
 		i = -1;
-		length = 0;
-
 		createBiTree(t, s, ++i);
+		int maxHeight = getMaxHeight(t);
 		
-		getAllPath(t, length);
+		cout << maxHeight << endl;
 	}
 
 	return 0;

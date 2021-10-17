@@ -22,20 +22,27 @@ void createBiTree(BiTree &t, string s, int &i) {
 	}
 }
 
-void getAllPath(BiTree t, int n) {
+void preTraverse(BiTree t) {
 	if(t) {
-		path[n] = t->data;
-		// cout << n << " " << ans[n] << endl;
-		if(!t->lchild && !t->rchild) {
-			for(int i=n; i>=0; i--) {
-				cout << path[i];
-			}
-			cout << endl;
-		}
-		else {
-			getAllPath(t->lchild, n+1);
-			getAllPath(t->rchild, n+1);
-		}
+		cout << t->data;
+		preTraverse(t->lchild);
+		preTraverse(t->rchild);
+	}
+}
+
+void inTraverse(BiTree t) {
+	if(t) {
+		inTraverse(t->lchild);
+		cout << t->data;
+		inTraverse(t->rchild);
+	}
+}
+
+void postTraverse(BiTree t) {
+	if(t) {
+		postTraverse(t->lchild);
+		postTraverse(t->rchild);
+		cout << t->data;
 	}
 }
     
@@ -51,8 +58,12 @@ int main()
 		length = 0;
 
 		createBiTree(t, s, ++i);
-		
-		getAllPath(t, length);
+		preTraverse(t);
+		cout << endl;
+		inTraverse(t);
+		cout << endl;
+		postTraverse(t);
+		cout << endl;
 	}
 
 	return 0;
