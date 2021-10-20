@@ -2,10 +2,10 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 int main()
 {
-	cout << 5/2;
 	return 0;
 }
