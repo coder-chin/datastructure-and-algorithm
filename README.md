@@ -1,8 +1,11 @@
 # datastructure-and-algorithm
-小白刷题，冲冲冲
+## 算法之路
 
-## 值得记录的
+### TimeLine
 
-https://mp.weixin.qq.com/s/X3qpi2v5RSp08mO-W5Vicw
+- 2021年暑假开始学习数据结构
 
-![](https://gitee.com/bjfuchin/mypic/raw/master/pic/20211003164623.png)
+- 2021年大二开始刷数据结构
+
+### 打卡
+
