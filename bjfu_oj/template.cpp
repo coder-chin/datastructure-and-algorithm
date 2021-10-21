@@ -6,6 +6,8 @@
 using namespace std;
 
 int main()
-{
+{	
+	int a = 'A'-64;
+	cout << a << endl;
 	return 0;
 }
