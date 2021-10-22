@@ -3,32 +3,6 @@
 #include <algorithm>
 using namespace std;
 
-void findIndex(vector<int> arr, vector<int> old, int n, int num) {
-	int slow = 0, fast = n-1;
-	// cout << slow << fast << endl;
-
-	while(slow<fast) {
-		if(arr[slow]+arr[fast]<num) {
-			slow++;
-		} else if(arr[slow]+arr[fast]>num) {
-			fast--;
-		} else {
-			int index1, index2;
-
-			for (int i = 0; i < n; ++i)
-			{
-				if(old[i]==arr[slow])
-					index1 = i;
-				if(old[i]==arr[fast])
-					index2 = i;
-			}
-
-			cout << index1 << " " << index2 << endl;
-			break;
-		}
-	}
-}
-
 int main()
 {
 	int n, num, tmp;
@@ -41,12 +15,16 @@ int main()
 			arr.push_back(tmp);
 		}
 
-		old = arr;
-		sort(arr.begin(), arr.end());
-
 		cin >> num;
 
-		findIndex(arr, old, n, num);
+		for (int i = 0; i < n-1; ++i)
+		{
+			for (int j = i+1; j < n; ++j)
+			{
+				if(arr[i]+arr[j]==num) 
+					cout << i << " " << j << endl;
+			}
+		}
 	}
 	return 0;
 }
