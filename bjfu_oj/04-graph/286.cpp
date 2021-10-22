@@ -4,133 +4,80 @@ using namespace std;
  
 #define MAX 100
  
-vector<int> visited(100);
-int be, en;
-int flag = 0;
- 
-typedef struct GNode{
-	int data;
-	bool exist;
-	struct GNode* next;
-} GNode, *GList;   //单个节点
- 
 typedef struct {
-	int vexnum;
-	int arcnum;
-	GList node[MAX];
-} ALGraph; //图结构
+	int vexnum;  //dian
+	int arcnum;  //bian
+	vector<vector<int>> node;  // juzhen
+} AMGraph;
  
-struct {
-	char ch;
-	int num;
-} ma[MAX]; //映射表
+void createMatrix(AMGraph &gra, int m, int n) {
+	gra.node.resize(MAX, vector<int>(MAX, 0));
  
-void createADL(ALGraph &gra, int m, int n) {
-	gra.vexnum = m;  //dian
-	gra.arcnum = n;  //bian
+	gra.vexnum = m;
+	gra.arcnum = n;
  
-	string s;
-	cin >> s;
+	int x, y;
  
-	for (unsigned int i = 0; i < s.size(); ++i) {
-		ma[i+1].ch = s[i];
-		ma[i+1].num = i+1;
+	// 绘制边框
+	for (int i = 0; i <= m; ++i)
+	{
+		gra.node[i][0] = gra.node[0][i] = i;
 	}
  
-	// 创建节点
-	for (int i = 1; i <= m; ++i) {
-		gra.node[i] = new GNode; 
-		gra.node[i]->data = i;
-		gra.node[i]->exist = true;
-		gra.node[i]->next = NULL;
-	}
-    
-    // 前插
-	for (int j = 0; j < n; ++j) {
-		cin >> s;
-		int l, r;
- 
-		for (int i = 1; i <= m; ++i)
-		{
-			if(ma[i].ch==s[0])
-				l = i;
-			if(ma[i].ch==s[1])
-				r = i;
-		}
-		
-		GNode *p = new GNode;
-		p->data = r;
- 
-		GList p1 = gra.node[l];
- 
-		while(p1->next) 
-			p1 = p1->next;
- 
-		p->next = NULL;
-		p1->next = p;
- 
-		GNode *q = new GNode;
-		q->data = l;
- 
-		GList q1 = gra.node[r];
-		while(q1->next) 
-			q1 = q1->next;
- 
-		q->next = NULL;
-		q1->next = q;
+	// 绘制联通的线
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> x >> y;
+		gra.node[x][y] = gra.node[y][x] = 1;
 	}
 }
-	
-void DFS(ALGraph gra, int n) {
-	visited[n] = 1;
  
-	if(n==en) {
-		flag = 1;
-		return;
+void deleteVex(AMGraph &gra) {
+	int dot;
+ 
+	cin >> dot;
+ 
+	for (int i = 0; i <= gra.vexnum; ++i) {
+		gra.node[i][dot] = gra.node[dot][i] = -1;
 	}
-	GList p = gra.node[n]->next;
  
-	while(p) {
-		if(visited[p->data]==0) {
-			DFS(gra, p->data);
+}
+ 
+void printGraph(AMGraph &gra) {
+	int n = gra.vexnum;
+	//cout << "n is: " << n << endl;
+ 
+	for (int i = 0; i <= n; ++i)
+	{
+		int tag = 0;
+ 
+		for (int j=0; j <= n; ++j)
+		{
+			if(gra.node[i][j]!=-1) {
+				cout << gra.node[i][j];
+				tag++;
+			} 
+			// cout << "tag is: " <<  tag << endl;
+			if(tag<n && gra.node[i][j]!=-1) {
+				cout << " ";
+			}
 		}
-		p = p->next;
+ 
+		gra.node[i][0]!=-1 &&  cout << endl;
 	}
 }
  
 int main()
 {
-	int n, m;
+	int m, n;
+	while(cin >> m >> n && m && n) {
+		AMGraph matrix;
  
-	while(cin>>m>>n && m && n) {
-		flag = 0;
-		fill(visited.begin(), visited.end(), 0);
-		ALGraph gra;
+		createMatrix(matrix, m, n);
+		deleteVex(matrix);
+		// cout << matrix.vexnum << endl;
+		printGraph(matrix);
+	} 
  
-		createADL(gra, m, n);
- 
-		string path;
-		cin >> path;
- 
-		char a = path[0];
-		char b = path[1];
- 
-		for (int i = 1; i <= m; ++i)
-		{
-			if(ma[i].ch==a)
-				be = i;
-			if(ma[i].ch==b)
-				en = i;
-		}
- 
-		DFS(gra, be);
- 
- 
-		if(flag)
-			cout << "YES" << endl;
-		else 
-			cout << "NO" << endl;
- 
-	}
 	return 0;
 }
