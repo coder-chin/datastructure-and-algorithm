@@ -28,7 +28,8 @@ public:
         ListNode* fast = head;
 
         for(int i=1; i<k; i++) {
-            fast = fast->next;
+            fast = fas
+            t->next;
         }
 
         while(fast->next) {
