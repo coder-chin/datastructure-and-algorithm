@@ -75,8 +75,6 @@ int main()
 
 		pop(s, d0, d1, e0, e1);
 
-
-
 	}
 	return 0;
 }
