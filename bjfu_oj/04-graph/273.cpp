@@ -2,7 +2,7 @@
 using namespace std;
 #define MAX 100
 #define inf 1e9
-
+ 
 int arc[MAX][MAX];
 int dis[MAX];
 int path[MAX];
