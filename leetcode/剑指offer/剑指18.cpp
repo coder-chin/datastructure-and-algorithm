@@ -1,6 +1,7 @@
 class Solution {
 public:
     ListNode* deleteNode(ListNode* head, int val) {
+    	// 本题要点，保证链表中节点的值互不相同
         if(!head) return head;
 
         if(head->val == val) {
