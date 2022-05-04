@@ -6,30 +6,23 @@ int main()
 {
 	int N, tmp;
 	while(cin >> N) {
-		vector<int> w, v;
-		for(int i = 0; i <= N; i++) w.push_back(i);
+		vector<int> v;
 		
+		// 输入每段木材价值
 		for(int i = 0; i < N; i++) {
 			cin >> tmp;
 			v.push_back(tmp);
 		}
+		vector<int> dp(N+1, INT32_MIN);
+		dp[0] = 0;
 
-		vector<vector<int>> dp(N+1, vector<int>(N+1, 0));
-		for (int i = 1; i <= N; i++) 
-        	dp[i][0] = v[i];
+		for(int i = 1; i <= N; i++) {
+			for(int j = 0; j < i; j++) {
+				dp[i] = max(dp[i], dp[i-j-1]+v[j]);
+			}
+		}
 
-		for (int i = 1; i <= N; i++) {
-	        for (int j = 1; j <= N; j++) {
-	        	if (j - w[i-1] >= 0)
-	                dp[i][j] = dp[i - 1][j] + dp[i][j - v[i-1]];
-	            else 
-	                dp[i][j] = dp[i - 1][j];
-
-	            cout << "i: " << i << " j: " << j << " " << dp[i][j] << endl;
-	        }  
-    	}
-
-    	cout << dp[N][N] << endl;
+    	cout << dp[N] << endl;
 	}
 	return 0;
 }
