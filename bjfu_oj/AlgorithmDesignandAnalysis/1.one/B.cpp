@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 // 消除相同连续字符
-int main()
-{
+int main() {
 	string str;
 
 	while(cin >> str) {
@@ -26,4 +26,6 @@ int main()
 			cout << str[i];
 		cout << endl;
 	}
+
+	return 0;
 }

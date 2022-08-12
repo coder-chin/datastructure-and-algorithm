@@ -9,6 +9,7 @@ bool hasNumber(int num) {
 	return false;
 }
 
+// 模拟
 int main()
 {
 	int N;
